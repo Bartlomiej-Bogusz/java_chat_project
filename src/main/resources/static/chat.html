@@ -38,7 +38,7 @@
 
                 data.forEach(msg => {
                     const p = document.createElement('p');
-                    const time = new Date(msg.timestamp).toLocaleTimeString();
+                    const time = new Date(msg.timestamp).toLocaleString();
                     p.textContent = "[" + time + "] " + msg.sender.username + ": " + msg.content;
                     messagesDiv.appendChild(p);
                 });
