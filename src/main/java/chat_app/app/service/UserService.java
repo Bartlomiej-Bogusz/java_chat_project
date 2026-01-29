@@ -20,4 +20,9 @@ public class UserService {
     public List<User> getAll() {
         return repository.findAll();
     }
+
+    public User loginOrCreate(String username) {
+        return repository.findByUsername(username)
+                .orElseGet(() -> repository.save(new User(null, username)));
+    }
 }

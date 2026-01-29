@@ -14,9 +14,14 @@ public class UserController {
 
     private final UserService service;
 
-    @PostMapping
-    public User create(@RequestBody User user) {
-        return service.create(user);
+//    @PostMapping
+//    public User create(@RequestBody User user) {
+//        return service.create(user);
+//    }
+
+    @PostMapping("/login")
+    public User login(@RequestBody User user) {
+        return service.loginOrCreate(user.getUsername());
     }
 
     @GetMapping

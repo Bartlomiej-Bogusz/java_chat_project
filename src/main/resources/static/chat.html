@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <title>Chat</title>
+</head>
+<body>
+
+<h2>Chat</h2>
+<p>Your name: <b id="username"></b></p>
+<br><br>
+
+
+<div id="messages"></div>
+
+<br>
+
+<input type="text" id="messageInput" placeholder="Enter message">
+<button onclick="sendMessage()">Send</button>
+
+<script>
+    const userId = localStorage.getItem('userId');
+    const username = localStorage.getItem('username');
+
+    if (!userId) {
+        window.location.href = 'login.html';
+    }
+
+    document.getElementById('username').textContent = username;
+
+    function loadMessages() {
+        fetch('/api/messages')
+            .then(res => res.json())
+            .then(data => {
+                const messagesDiv = document.getElementById('messages');
+                messagesDiv.innerHTML = '';
+
+                data.forEach(msg => {
+                    const p = document.createElement('p');
+                    const time = new Date(msg.timestamp).toLocaleTimeString();
+                    p.textContent = "[" + time + "] " + msg.sender.username + ": " + msg.content;
+                    messagesDiv.appendChild(p);
+                });
+            });
+    }
+
+    function sendMessage() {
+        const content = document.getElementById('messageInput').value;
+
+        fetch('/api/messages', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                content: content,
+                sender: { id: userId }
+            })
+        }).then(() => {
+            document.getElementById('messageInput').value = '';
+            loadMessages();
+        });
+    }
+
+    loadMessages();
+</script>
+
+</body>
+</html>
