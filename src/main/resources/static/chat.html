@@ -60,9 +60,23 @@
             loadMessages();
         });
     }
+    function loadQuote() {
+        fetch('/api/quote')
+            .then(res => res.json())
+            .then(q => {
+                document.getElementById('quote').innerHTML =
+                    '"' + q.content + '" — <b>' + q.author + '</b>';
+            });
+    }
 
     loadMessages();
+    loadQuote();
 </script>
+
+<hr>
+<div id="quote">
+    <i>Loading quote...</i>
+</div>
 
 </body>
 </html>
