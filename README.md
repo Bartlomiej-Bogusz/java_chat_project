@@ -1,4 +1,4 @@
-# Aplikacja chatowa – Spring Boot
+# Aplikacja chat – Spring Boot
 
 ## 1. Opis projektu
 Projekt przedstawia aplikację typu chat, opartą o architekturę klient–serwer. Aplikacja umożliwia tworzenie użytkowników, wysyłanie oraz odczytywanie wiadomości w czasie rzeczywistym poprzez REST API.
